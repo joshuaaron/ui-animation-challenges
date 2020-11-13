@@ -8,8 +8,6 @@
     --bg-2: #fdfcfe;
     --grey: #9a9a9a;
     --text-color: #28262b;
-
-    --section-spacing: 5rem;
 }
 
 @mixin pseudo {
@@ -70,7 +68,7 @@ h1 {
 
 h2 {
     color: var(--secondary);
-    margin: 15px 0;
+    margin: 1rem 0;
     font-weight: 800;
 }
 
@@ -136,7 +134,7 @@ p {
             &.-purple {
                 width: 32px;
                 height: 32px;
-                transform: translate(15px, 15px);
+                transform: translate(16px, 16px);
                 background: var(--primary);
             }
         }
@@ -148,12 +146,12 @@ p {
         flex: 1;
 
         .navbar-item {
-            padding: 10px 30px;
+            padding: 0.75rem 2rem;
         }
     }
 
     .navbar-lang {
-        padding: 10px 30px;
+        padding: 0.75rem 2rem;
 
         span {
             color: var(--secondary);
@@ -164,7 +162,7 @@ p {
         display: grid;
         grid-template-columns: repeat(16, 1fr);
         align-items: center;
-        margin: 3rem 0 var(--section-spacing);
+        margin: 3rem 0 5rem;
 
         .landing-text {
             grid-column: 1 / 6;
@@ -209,7 +207,7 @@ p {
 
         .landing-buttons {
             display: flex;
-            margin-top: 80px;
+            margin-top: 5rem;
             align-items: center;
 
             .button-wrapper::after {
@@ -224,25 +222,24 @@ p {
             }
 
             button {
-                background: var(--secondary);
-                color: white;
+                padding: 1rem 2rem;
                 border: 0;
-                outline: none;
-                padding: 15px 30px;
-                cursor: pointer;
-                letter-spacing: 1px;
+                background: var(--secondary);
+                border-radius: 30px 0 30px 0;
+                color: white;
+                font-family: 'Rubik';
                 font-weight: 500;
                 font-size: 1rem;
-                letter-spacing: 0.8px;
-                font-family: 'Rubik';
+                letter-spacing: 1px;
                 text-transform: uppercase;
-                border-radius: 30px 0 30px 0;
+                cursor: pointer;
+                outline: none;
                 z-index: 1;
             }
 
             span {
-                padding: 12px 24px;
-                margin-left: 30px;
+                padding: 0.75rem 1.5rem;
+                margin-left: 1.5rem;
             }
         }
     }
@@ -256,14 +253,14 @@ p {
 }
 
 .benefits-title {
-    margin: var(--section-spacing) 0 4rem;
+    margin: 5rem 0 4rem;
 }
 
 .benefits-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
-    margin-bottom: var(--section-spacing);
+    margin-bottom: 5rem;
 
     .benefits-image {
         grid-column: 1;
@@ -294,7 +291,7 @@ p {
         }
 
         .list-index {
-            margin-right: 50px;
+            margin-right: 3rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -329,11 +326,18 @@ p {
 .popular {
     background: white;
 
+    &::before {
+        @include pseudo;
+        @include circle(40px);
+        background: var(--primary);
+        top: 20px;
+        right: 200px;
+        z-index: 1;
+    }
+
     &::after {
         @include pseudo;
-        width: 1800px;
-        height: 1800px;
-        border-radius: 50%;
+        @include circle(1800px);
         background: var(--bg-1);
         top: -2rem;
         left: -36rem;
@@ -341,7 +345,7 @@ p {
     }
 
     &-title {
-        margin: var(--section-spacing) 0 4rem;
+        margin: 5rem 0 4rem;
         z-index: 1;
     }
 
@@ -407,7 +411,7 @@ p {
             }
 
             .make-order {
-                padding: 10px 40px;
+                padding: 0.75rem 2.5rem;
 
                 p {
                     font-weight: 500;

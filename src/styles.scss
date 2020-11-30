@@ -59,7 +59,7 @@ img {
 section {
     width: 100%;
     padding: 1.125rem 6rem;
-    scroll-snap-align: start;
+    // scroll-snap-align: start;
 }
 
 h1 {
@@ -169,6 +169,13 @@ p {
         .landing-text {
             grid-column: 1 / 6;
             font-size: 1.25rem;
+
+            // range the nth child from 5-10 (as they're replaced with spans to wrap chars
+            // :nth-child(n+X)  : all children from the Xth position onward
+            // :nth-child(-n+x) : all children up to the Xth position
+            h1 span:nth-child(n + 5):nth-child(-n + 10) {
+                color: var(--primary);
+            }
         }
 
         .landing-image {
@@ -191,7 +198,6 @@ p {
                 @include pseudo;
                 width: 1px;
                 height: 250px;
-                transform: rotate(36deg);
                 background: var(--text-color);
                 bottom: -88px;
                 left: 245px;
@@ -515,8 +521,151 @@ circle {
     will-change: transform;
 }
 
+// Animations
+.landing {
+    --duration: 1s;
+    --ease: cubic-bezier(0.68, 0, 0.35, 1.55);
+    --delay: 0s;
+    --delay-increment: 0.1s;
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: var(--duration);
+        animation-timing-function: var(--ease);
+        animation-delay: var(--delay);
+        animation-fill-mode: both;
+    }
+
+    &[data-inview] {
+        .landing-image {
+            // black line
+            &::before {
+                animation-name: line-scale-rotate;
+                --delay: calc(var(--delay-increment) * 1);
+            }
+            // purple circle
+            &::after {
+                animation-name: fade-scale-up;
+            }
+            // ramen bowl
+            &-wrapper {
+                --delay: calc(var(--delay-increment) * 3);
+                animation-name: fade-scale-up;
+            }
+        }
+
+        [data-subtitle] {
+            --duration: 0s;
+            --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 4));
+            animation-name: fade-in;
+        }
+
+        [data-title] {
+            --duration: 0.4s;
+            --delay: calc((var(--i) * 50ms) + (var(--delay-increment) * 3));
+            animation-name: title-animation;
+        }
+
+        .landing-description {
+            --duration: 0.8s;
+            --delay: calc(var(--delay-increment) * 5);
+            animation-name: fade-in-down;
+        }
+
+        .button-wrapper {
+            --delay: calc(var(--delay-increment) * 5);
+            transform-origin: left top;
+            animation-name: fade-scale-up;
+        }
+
+        .discover-menu {
+            --delay: calc(var(--delay-increment) * 10);
+            animation-name: fade-in;
+        }
+
+        .navbar {
+            &-logo {
+                --ease: cubic-bezier(0.65, 0, 0.15, 1);
+                --duration: 0.6s;
+                --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+                animation-name: fade-slide-back;
+            }
+
+            &-item {
+                --ease: cubic-bezier(0.65, 0, 0.15, 1);
+                --duration: 0.6s;
+                --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+                animation-name: fade-slide-back;
+            }
+
+            &-lang {
+                --ease: cubic-bezier(0.65, 0, 0.15, 1);
+                --delay: calc(var(--delay-increment) * 6.5);
+                --duration: 0.6s;
+                animation-name: fade-in-down;
+            }
+        }
+
+        .vertical-text {
+            --delay: calc(var(--delay-increment) * 6.5);
+            animation-name: fade-in;
+        }
+    }
+}
+
 @keyframes rotate {
     to {
         transform: rotateZ(360deg);
+    }
+}
+
+@keyframes fade-slide-back {
+    from {
+        opacity: 0;
+        transform: translate(30px, 0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fade-in-down {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fade-scale-up {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+@keyframes line-scale-rotate {
+    from {
+        transform-origin: top right;
+        transform: scale(0) rotate(75deg);
+    }
+    to {
+        transform: scale(1) rotate(36deg);
+    }
+}
+
+@keyframes title-animation {
+    from {
+        opacity: 0;
+        transform: scale(0.1) rotateZ(-45deg);
     }
 }

@@ -8,6 +8,154 @@
     --bg-2: #fdfcfe;
     --grey: #9a9a9a;
     --text-color: #28262b;
+
+    // Animation vars
+    --duration: 1s;
+    --ease: cubic-bezier(0.68, 0, 0.35, 1.55);
+    --delay: 0s;
+    --delay-increment: 0.1s;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    position: relative;
+
+    animation-duration: var(--duration);
+    animation-timing-function: var(--ease);
+    animation-delay: var(--delay);
+    animation-fill-mode: both;
+}
+
+/****************************************
+ * Animations
+*********/
+.landing[data-inview] {
+    .landing-image {
+        &::before {
+            animation-name: line-scale-rotate;
+            --delay: calc(var(--delay-increment) * 1);
+        }
+        &::after {
+            animation-name: fade-scale-up;
+        }
+        &-wrapper {
+            --delay: calc(var(--delay-increment) * 3);
+            animation-name: fade-scale-up;
+        }
+    }
+
+    [data-subtitle] {
+        --duration: 0s;
+        --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 4));
+        animation-name: fade-in;
+    }
+
+    [data-title] {
+        --duration: 0.4s;
+        --delay: calc((var(--i) * 50ms) + (var(--delay-increment) * 3));
+        animation-name: title-animation;
+    }
+
+    .landing-description {
+        --duration: 0.8s;
+        --delay: calc(var(--delay-increment) * 5);
+        animation-name: fade-in-down;
+    }
+
+    .button-wrapper {
+        --delay: calc(var(--delay-increment) * 5);
+        transform-origin: left top;
+        animation-name: fade-scale-up;
+    }
+
+    .discover-menu {
+        --delay: calc(var(--delay-increment) * 10);
+        animation-name: fade-in;
+    }
+
+    .navbar {
+        &-logo {
+            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --duration: 0.6s;
+            --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+            animation-name: fade-slide-back;
+        }
+
+        &-item {
+            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --duration: 0.6s;
+            --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+            animation-name: fade-slide-back;
+        }
+
+        &-lang {
+            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --delay: calc(var(--delay-increment) * 6.5);
+            --duration: 0.6s;
+            animation-name: fade-in-down;
+        }
+    }
+
+    .vertical-text {
+        --delay: calc(var(--delay-increment) * 6.5);
+        animation-name: fade-in;
+    }
+}
+
+.benefits[data-inview] {
+    [data-subtitle] {
+        --duration: 0s;
+        --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 3));
+        animation-name: fade-in;
+    }
+
+    [data-title] {
+        --duration: 0.4s;
+        --delay: calc((var(--i) * 0.05s) + (var(--delay-increment) * 2));
+        animation-name: title-animation;
+    }
+
+    .benefits-image-wrapper {
+        --duration: 1.2s;
+        --ease: cubic-bezier(0.65, 0, 0.15, 1);
+        --delay: calc(var(--delay-increment) * 4);
+        animation-name: fade-scale-up;
+    }
+
+    .benefits-image::after {
+        --duration: 1.2s;
+        --ease: cubic-bezier(0.65, 0, 0.15, 1);
+        --delay: calc(var(--delay-increment) * 5);
+        animation-name: fade-scale-up;
+    }
+
+    .list-item-wrapper {
+        --duration: 0.6s;
+
+        .list-index,
+        .list-text {
+            animation-name: fade-in-up;
+        }
+
+        .list-text {
+            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+        }
+
+        @for $i from 1 through 3 {
+            &:nth-child(#{$i}) {
+                // Delays: .6 / 1 / 1.4
+                .list-text {
+                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--delay-increment) * 6));
+                }
+                // Delays: .8 / 1.2 / 1.6
+                .list-index {
+                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--delay-increment) * 8));
+                }
+            }
+        }
+    }
 }
 
 @mixin pseudo {
@@ -20,13 +168,6 @@
     width: $r;
     height: $r;
     border-radius: 50%;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    position: relative;
 }
 
 html {
@@ -262,6 +403,10 @@ p {
 
 .benefits-title {
     margin: 5rem 0 4rem;
+
+    h1 span:nth-child(n + 5) {
+        color: var(--primary);
+    }
 }
 
 .benefits-container {
@@ -521,99 +666,6 @@ circle {
     will-change: transform;
 }
 
-// Animations
-.landing {
-    --duration: 1s;
-    --ease: cubic-bezier(0.68, 0, 0.35, 1.55);
-    --delay: 0s;
-    --delay-increment: 0.1s;
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: var(--duration);
-        animation-timing-function: var(--ease);
-        animation-delay: var(--delay);
-        animation-fill-mode: both;
-    }
-
-    &[data-inview] {
-        .landing-image {
-            // black line
-            &::before {
-                animation-name: line-scale-rotate;
-                --delay: calc(var(--delay-increment) * 1);
-            }
-            // purple circle
-            &::after {
-                animation-name: fade-scale-up;
-            }
-            // ramen bowl
-            &-wrapper {
-                --delay: calc(var(--delay-increment) * 3);
-                animation-name: fade-scale-up;
-            }
-        }
-
-        [data-subtitle] {
-            --duration: 0s;
-            --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 4));
-            animation-name: fade-in;
-        }
-
-        [data-title] {
-            --duration: 0.4s;
-            --delay: calc((var(--i) * 50ms) + (var(--delay-increment) * 3));
-            animation-name: title-animation;
-        }
-
-        .landing-description {
-            --duration: 0.8s;
-            --delay: calc(var(--delay-increment) * 5);
-            animation-name: fade-in-down;
-        }
-
-        .button-wrapper {
-            --delay: calc(var(--delay-increment) * 5);
-            transform-origin: left top;
-            animation-name: fade-scale-up;
-        }
-
-        .discover-menu {
-            --delay: calc(var(--delay-increment) * 10);
-            animation-name: fade-in;
-        }
-
-        .navbar {
-            &-logo {
-                --ease: cubic-bezier(0.65, 0, 0.15, 1);
-                --duration: 0.6s;
-                --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
-                animation-name: fade-slide-back;
-            }
-
-            &-item {
-                --ease: cubic-bezier(0.65, 0, 0.15, 1);
-                --duration: 0.6s;
-                --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
-                animation-name: fade-slide-back;
-            }
-
-            &-lang {
-                --ease: cubic-bezier(0.65, 0, 0.15, 1);
-                --delay: calc(var(--delay-increment) * 6.5);
-                --duration: 0.6s;
-                animation-name: fade-in-down;
-            }
-        }
-
-        .vertical-text {
-            --delay: calc(var(--delay-increment) * 6.5);
-            animation-name: fade-in;
-        }
-    }
-}
-
 @keyframes rotate {
     to {
         transform: rotateZ(360deg);
@@ -643,6 +695,13 @@ circle {
     from {
         opacity: 0;
         transform: translateY(-20px);
+    }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
 }
 

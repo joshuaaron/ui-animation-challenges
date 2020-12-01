@@ -12,16 +12,36 @@
             trackInView(el);
         });
 
-        // landing
-        const landingText = getEl('.landing-text h1');
-        const landingSubtitle = getEl('.landing-text h2');
-
-        const splitLandingText = splitText(landingText.textContent, 'title');
-        const splitLandingSubtitle = splitText(landingSubtitle.textContent, 'subtitle');
-
-        landingText.replaceChildren(...splitLandingText);
-        landingSubtitle.replaceChildren(...splitLandingSubtitle);
+        setLandingPage();
+        setBenefitsPage();
+        setPopularItemsPage();
     }
+
+    function setLandingPage() {
+        const landingTextEl = getEl('.landing-text h1');
+        const landingSubtitleEl = getEl('.landing-text h2');
+
+        const splitLandingText = splitText(landingTextEl.textContent, 'title');
+        splitLandingText.splice(10, 1, document.createElement('br')); // ensure line break is re-added
+
+        const splitLandingSubtitle = splitText(landingSubtitleEl.textContent, 'subtitle');
+
+        landingTextEl.replaceChildren(...splitLandingText);
+        landingSubtitleEl.replaceChildren(...splitLandingSubtitle);
+    }
+
+    function setBenefitsPage() {
+        const benefitsTextEl = getEl('.benefits-title h1');
+        const benefitsSubtitleEl = getEl('.benefits-title h2');
+
+        const splitBenefitsText = splitText(benefitsTextEl.textContent, 'title');
+        const splitBenefitsSubtitle = splitText(benefitsSubtitleEl.textContent, 'subtitle');
+
+        benefitsTextEl.replaceChildren(...splitBenefitsText);
+        benefitsSubtitleEl.replaceChildren(...splitBenefitsSubtitle);
+    }
+
+    function setPopularItemsPage() {}
 
     function trackInView(element) {
         const observer = new IntersectionObserver(
@@ -46,7 +66,6 @@
 
     function splitText(text, attr) {
         return [...text].map((char, i) => {
-            if (i === 10) return document.createElement('br');
             let span = document.createElement('span');
             span.style.display = 'inline-flex';
             span.innerText = char === ' ' ? String.fromCharCode(160) : char;

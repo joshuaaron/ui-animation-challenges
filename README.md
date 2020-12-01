@@ -26,5 +26,6 @@ Just working on different ways to animate, with basic css transform/animations, 
     .landing-description {
         --duration: 0.8s;
         --delay: calc(var(--offset) * 5);
+    }
 }
 ```

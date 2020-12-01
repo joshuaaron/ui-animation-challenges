@@ -12,6 +12,7 @@
     // Animation vars
     --duration: 1s;
     --ease: cubic-bezier(0.68, 0, 0.35, 1.55);
+    --ease-alt: cubic-bezier(0.65, 0, 0.15, 1);
     --delay: 0s;
     --offset: 0.1s;
 }
@@ -37,9 +38,11 @@
             animation-name: line-scale-rotate;
             --delay: calc(var(--offset) * 1);
         }
+
         &::after {
             animation-name: fade-scale-up;
         }
+
         &-wrapper {
             --delay: calc(var(--offset) * 3);
             animation-name: fade-scale-up;
@@ -54,7 +57,7 @@
 
     [data-title] {
         --duration: 0.4s;
-        --delay: calc((var(--i) * 50ms) + (var(--offset) * 3));
+        --delay: calc((var(--i) * 0.05s) + (var(--offset) * 3));
         animation-name: title-animation;
     }
 
@@ -77,21 +80,21 @@
 
     .navbar {
         &-logo {
-            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --ease: var(--ease-alt);
             --duration: 0.6s;
             --delay: calc((var(--i) * 100ms) + (var(--offset) * 6.5));
             animation-name: fade-slide-back;
         }
 
         &-item {
-            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --ease: var(--ease-alt);
             --duration: 0.6s;
             --delay: calc((var(--i) * 100ms) + (var(--offset) * 6.5));
             animation-name: fade-slide-back;
         }
 
         &-lang {
-            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --ease: var(--ease-alt);
             --delay: calc(var(--offset) * 6.5);
             --duration: 0.6s;
             animation-name: fade-in-down;
@@ -119,14 +122,14 @@
 
     .benefits-image-wrapper {
         --duration: 1.2s;
-        --ease: cubic-bezier(0.65, 0, 0.15, 1);
+        --ease: var(--ease-alt);
         --delay: calc(var(--offset) * 4);
         animation-name: fade-scale-up;
     }
 
     .benefits-image::after {
         --duration: 1.2s;
-        --ease: cubic-bezier(0.65, 0, 0.15, 1);
+        --ease: var(--ease-alt);
         --delay: calc(var(--offset) * 5);
         animation-name: fade-scale-up;
     }
@@ -144,7 +147,7 @@
 
         .list-text {
             animation-name: fade-in-up;
-            --ease: cubic-bezier(0.65, 0, 0.15, 1);
+            --ease: var(--ease-alt);
         }
 
         @for $i from 1 through 3 {

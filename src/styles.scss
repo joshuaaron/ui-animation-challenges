@@ -13,7 +13,7 @@
     --duration: 1s;
     --ease: cubic-bezier(0.68, 0, 0.35, 1.55);
     --delay: 0s;
-    --delay-increment: 0.1s;
+    --offset: 0.1s;
 }
 
 *,
@@ -35,43 +35,43 @@
     .landing-image {
         &::before {
             animation-name: line-scale-rotate;
-            --delay: calc(var(--delay-increment) * 1);
+            --delay: calc(var(--offset) * 1);
         }
         &::after {
             animation-name: fade-scale-up;
         }
         &-wrapper {
-            --delay: calc(var(--delay-increment) * 3);
+            --delay: calc(var(--offset) * 3);
             animation-name: fade-scale-up;
         }
     }
 
     [data-subtitle] {
         --duration: 0s;
-        --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 4));
+        --delay: calc((var(--i) * 0.2s) + (var(--offset) * 4));
         animation-name: fade-in;
     }
 
     [data-title] {
         --duration: 0.4s;
-        --delay: calc((var(--i) * 50ms) + (var(--delay-increment) * 3));
+        --delay: calc((var(--i) * 50ms) + (var(--offset) * 3));
         animation-name: title-animation;
     }
 
     .landing-description {
         --duration: 0.8s;
-        --delay: calc(var(--delay-increment) * 5);
+        --delay: calc(var(--offset) * 5);
         animation-name: fade-in-down;
     }
 
     .button-wrapper {
-        --delay: calc(var(--delay-increment) * 5);
+        --delay: calc(var(--offset) * 5);
         transform-origin: left top;
         animation-name: fade-scale-up;
     }
 
     .discover-menu {
-        --delay: calc(var(--delay-increment) * 10);
+        --delay: calc(var(--offset) * 10);
         animation-name: fade-in;
     }
 
@@ -79,67 +79,71 @@
         &-logo {
             --ease: cubic-bezier(0.65, 0, 0.15, 1);
             --duration: 0.6s;
-            --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+            --delay: calc((var(--i) * 100ms) + (var(--offset) * 6.5));
             animation-name: fade-slide-back;
         }
 
         &-item {
             --ease: cubic-bezier(0.65, 0, 0.15, 1);
             --duration: 0.6s;
-            --delay: calc((var(--i) * 100ms) + (var(--delay-increment) * 6.5));
+            --delay: calc((var(--i) * 100ms) + (var(--offset) * 6.5));
             animation-name: fade-slide-back;
         }
 
         &-lang {
             --ease: cubic-bezier(0.65, 0, 0.15, 1);
-            --delay: calc(var(--delay-increment) * 6.5);
+            --delay: calc(var(--offset) * 6.5);
             --duration: 0.6s;
             animation-name: fade-in-down;
         }
     }
 
     .vertical-text {
-        --delay: calc(var(--delay-increment) * 6.5);
+        --delay: calc(var(--offset) * 6.5);
         animation-name: fade-in;
     }
 }
 
 .benefits[data-inview] {
-    [data-subtitle] {
-        --duration: 0s;
-        --delay: calc((var(--i) * 0.2s) + (var(--delay-increment) * 3));
-        animation-name: fade-in;
-    }
-
     [data-title] {
         --duration: 0.4s;
-        --delay: calc((var(--i) * 0.05s) + (var(--delay-increment) * 2));
+        --delay: calc((var(--i) * 0.05s) + (var(--offset) * 2));
         animation-name: title-animation;
+    }
+
+    [data-subtitle] {
+        --duration: 0s;
+        --delay: calc((var(--i) * 0.2s) + (var(--offset) * 3));
+        animation-name: fade-in;
     }
 
     .benefits-image-wrapper {
         --duration: 1.2s;
         --ease: cubic-bezier(0.65, 0, 0.15, 1);
-        --delay: calc(var(--delay-increment) * 4);
+        --delay: calc(var(--offset) * 4);
         animation-name: fade-scale-up;
     }
 
     .benefits-image::after {
         --duration: 1.2s;
         --ease: cubic-bezier(0.65, 0, 0.15, 1);
-        --delay: calc(var(--delay-increment) * 5);
+        --delay: calc(var(--offset) * 5);
         animation-name: fade-scale-up;
     }
 
     .list-item-wrapper {
         --duration: 0.6s;
 
-        .list-index,
-        .list-text {
+        .list-index {
             animation-name: fade-in-up;
+
+            &::after {
+                animation: rotate 3s both infinite reverse linear;
+            }
         }
 
         .list-text {
+            animation-name: fade-in-up;
             --ease: cubic-bezier(0.65, 0, 0.15, 1);
         }
 
@@ -147,12 +151,63 @@
             &:nth-child(#{$i}) {
                 // Delays: .6 / 1 / 1.4
                 .list-text {
-                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--delay-increment) * 6));
+                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--offset) * 6));
                 }
                 // Delays: .8 / 1.2 / 1.6
                 .list-index {
-                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--delay-increment) * 8));
+                    --delay: calc((#{($i - 1) * 0.4}s) + (var(--offset) * 8));
+
+                    &::after {
+                        @if $i == 2 {
+                            animation-direction: normal;
+                        }
+                    }
                 }
+            }
+        }
+    }
+}
+
+.popular[data-inview] {
+    [data-title] {
+        --duration: 0.4s;
+        --delay: calc((var(--i) * 0.05s) + (var(--offset) * 2));
+        animation-name: title-animation;
+    }
+
+    [data-subtitle] {
+        --duration: 0s;
+        --delay: calc((var(--i) * 0.2s) + (var(--offset) * 3));
+        animation-name: fade-in;
+    }
+
+    .popular-text {
+        --delay: calc(var(--offset) * 4);
+        animation-name: fade-in-up;
+
+        &.-reverse {
+            --delay: calc(var(--offset) * 8);
+        }
+    }
+
+    .popular-image {
+        --duration: 1.2s;
+
+        &-wrapper {
+            animation-name: fade-scale-down;
+            --delay: calc(var(--offset) * 8);
+        }
+        &::after {
+            animation-name: fade-scale-down;
+            --delay: calc(var(--offset) * 14);
+        }
+
+        &.-reverse {
+            .popular-image-wrapper {
+                --delay: calc(var(--offset) * 10);
+            }
+            .popular-image::after {
+                --delay: calc(var(--offset) * 16);
             }
         }
     }
@@ -200,7 +255,7 @@ img {
 section {
     width: 100%;
     padding: 1.125rem 6rem;
-    // scroll-snap-align: start;
+    scroll-snap-align: start;
 }
 
 h1 {
@@ -500,6 +555,10 @@ p {
     &-title {
         margin: 5rem 0 4rem;
         z-index: 1;
+
+        h1 span:nth-child(n + 1):nth-child(-n + 7) {
+            color: var(--primary);
+        }
     }
 
     &-container {
@@ -661,7 +720,7 @@ circle {
     stroke: black;
     stroke-width: 1;
     stroke-dasharray: 8, 8.5;
-    // animation: rotate 9s both infinite reverse linear;
+    animation: rotate 9s both infinite reverse linear;
     transform-origin: center;
     will-change: transform;
 }
@@ -709,6 +768,13 @@ circle {
     from {
         opacity: 0;
         transform: scale(0);
+    }
+}
+
+@keyframes fade-scale-down {
+    from {
+        opacity: 0;
+        transform: scale(1.6);
     }
 }
 

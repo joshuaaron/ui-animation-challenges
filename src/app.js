@@ -41,7 +41,16 @@
         benefitsSubtitleEl.replaceChildren(...splitBenefitsSubtitle);
     }
 
-    function setPopularItemsPage() {}
+    function setPopularItemsPage() {
+        const popularTextEl = getEl('.popular-title h1');
+        const popularSubtitleEl = getEl('.popular-title h2');
+
+        const splitPopularText = splitText(popularTextEl.textContent, 'title');
+        const splitPopularSubtitle = splitText(popularSubtitleEl.textContent, 'subtitle');
+
+        popularTextEl.replaceChildren(...splitPopularText);
+        popularSubtitleEl.replaceChildren(...splitPopularSubtitle);
+    }
 
     function trackInView(element) {
         const observer = new IntersectionObserver(
